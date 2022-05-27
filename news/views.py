@@ -1,11 +1,11 @@
+from django.db.models import *
 from django.http import HttpResponse
 from news.models import News, Category
 
 
 def index(request):
-    news = News.objects.get(title='News 2')
-    category = Category.objects.get(pk=1).news_set.all()
-    return HttpResponse(category)
+    news = News.objects.aggregate(max_views=Min('views'), min_views=Max('views'))
+    return HttpResponse(news)
 
 
 def test(request):

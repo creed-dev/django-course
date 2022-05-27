@@ -9,6 +9,7 @@ class News(models.Model):
     photo = models.ImageField(upload_to='news/img', blank=True)
     is_published = models.BooleanField(default=True)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
+    views = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = 'New'

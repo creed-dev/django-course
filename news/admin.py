@@ -5,7 +5,7 @@ from news.models import News, Category
 
 
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'content', 'category', 'is_published')
+    list_display = ('title', 'content', 'category', 'is_published', 'created_at')
     list_display_links = ('title', 'content')
     search_fields = ('title', 'content')
     list_filter = ('is_published', 'category')
