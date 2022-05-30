@@ -4,7 +4,8 @@ from news.models import News, Category
 
 
 def index(request):
-    news = News.objects.aggregate(max_views=Min('views'), min_views=Max('views'))
+    # news = News.objects.aggregate(max_views=Min('views'), min_views=Max('views'))
+    cat = Category.objects.all()
     return HttpResponse(news)
 
 
