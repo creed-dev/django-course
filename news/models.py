@@ -8,3 +8,7 @@ class News(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     photo = models.ImageField(upload_to='media/news/img')
     is_published = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = 'new'
+        verbose_name_plural = 'news'
