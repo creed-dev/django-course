@@ -2,7 +2,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', index),
-    path('test/', test),
-    path('din-var/<int:value>', din_var)
+    path('', NewsListCreateAPIView.as_view()),
+    path('<int:pk>/', NewsUpdateAPIView.as_view()),
+    path('details/<int:pk>/', NewsDetailsAPI.as_view())
 ]

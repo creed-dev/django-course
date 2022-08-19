@@ -1,17 +1,68 @@
-from django.db.models import *
-from django.http import HttpResponse
-from news.models import News, Category
+from rest_framework import status, generics
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import News, Category
+from .serializers import NewsSerializer
 
 
-def index(request):
-    # news = News.objects.aggregate(max_views=Min('views'), min_views=Max('views'))
-    cat = Category.objects.all()
-    return HttpResponse(news)
+class NewsListCreateAPIView(generics.ListCreateAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
 
 
-def test(request):
-    return HttpResponse('<h1>Test page</h1>')
+class NewsUpdateAPIView(generics.UpdateAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
 
 
-def din_var(request, value):
-    return HttpResponse(f'<h1>Dynamically value is: {value}</h1>')
+class NewsDetailsAPI(generics.RetrieveUpdateDestroyAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
+
+# class NewsAPIView(APIView):
+#     def get(self, request):
+#         all_news = News.objects.all().values()
+#
+#         return Response({'posts': all_news})
+#
+#     def post(self, request):
+#         serializer = NewsSerializer(data=request.data)
+#
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#
+#     def put(self, request, *args, **kwargs):
+#         pk = kwargs.get("pk", None)
+#
+#         if not pk:
+#             return Response(status=status.HTTP_400_BAD_REQUEST)
+#
+#         try:
+#             instance = News.objects.get(pk=pk)
+#         except:
+#             return Response({"errors": ["Object does not exist"]})
+#
+#         serializer = NewsSerializer(data=request.data, instance=instance)
+#
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#
+#     def delete(self, request, *args, **kwargs):
+#         pk = kwargs.get("pk", None)
+#
+#         if not pk:
+#             return Response(status=status.HTTP_400_BAD_REQUEST)
+#
+#         try:
+#             instance = News.objects.get(pk=pk)
+#         except:
+#             return Response({"errors": ["Object does not exist"]})
+#
+#         instance.delete()
+#         return Response({"message": "Object is deleted"})
